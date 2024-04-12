@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Tebak-Tebakan Biologi SMP</title>
+    <style>
+        /* CSS styling */
+    </style>
+</head>
+<body>
+    <h1>Game Tebak-Tebakan Biologi SMP</h1>
+    <div id="gameContainer">
+        <!-- Konten permainan -->
+        <p id="question"></p>
+        <div id="options"></div>
+        <button onclick="submitAnswer()">Submit</button>
+    </div>
+    <p id="result"></p>
+    <div id="answers"></div>
+    <p id="nextLevel" style="display: none;"><a href="#" onclick="nextLevel()">Lanjutkan ke Level Berikutnya</a></p>
+
+    <script>
+        // Data soal untuk level selanjutnya
+        const nextLevelQuestions = [
+            { question: "Soal 1 untuk Level 2", options: ["Pilihan 1", "Pilihan 2", "Pilihan 3", "Pilihan 4"], answer: "Pilihan 1" },
+            { question: "Soal 2 untuk Level 2", options: ["Pilihan 1", "Pilihan 2", "Pilihan 3", "Pilihan 4"], answer: "Pilihan 2" }
+            // Tambahkan soal lainnya untuk level berikutnya jika diperlukan
+        ];
+
+        let currentLevelIndex = 0; // Indeks soal di level selanjutnya
+        let score = 0;
+        // Fungsi untuk menampilkan soal dan opsi jawaban
+        function displayQuestion() {
+            const questionElement = document.getElementById('question');
+            const optionsElement = document.getElementById('options');
+            const currentQuestion = nextLevelQuestions[currentLevelIndex];
+            questionElement.textContent = currentQuestion.question;
+            optionsElement.innerHTML = '';
+            currentQuestion.options.forEach((option, index) => {
+                const input = document.createElement('input');
+                input.type = 'radio';
+                input.name = 'answer';
+                input.value = option;
+                input.id = `option${index}`;
+                const label = document.createElement('label');
+                label.setAttribute('for', `option${index}`);
+                label.textContent = option;
+                optionsElement.appendChild(input);
+                optionsElement.appendChild(label);
+                optionsElement.appendChild(document.createElement('br'));
+            });
+        }
+        // Fungsi untuk mengirim jawaban
+        function submitAnswer() {
+            const userAnswer = document.querySelector('input[name="answer"]:checked');
+            if (!userAnswer) {
+                return;
+            }
+            const selectedAnswer = userAnswer.value;
+            const correctAnswer = nextLevelQuestions[currentLevelIndex].answer;
+            if (selectedAnswer === correctAnswer) {
+                score += 10;
+                document.getElementById('result').textContent = "Jawaban Benar! Skor Anda: " + score;
+            } else {
+                document.getElementById('result').textContent = "Jawaban Salah. Skor Anda: " + score;
+            }
+            currentLevelIndex++;
+            if (currentLevelIndex < nextLevelQuestions.length) {
+                displayQuestion();
+            } else {
+                showEndGameMessage();
+            }
+        }
+        // Fungsi untuk menampilkan pesan akhir permainan
+        function showEndGameMessage() {
+            document.getElementById('result').textContent = "Permainan Selesai. Skor Akhir Anda: " + score;
+            document.getElementById('nextLevel').style.display = 'block'; // Menampilkan tautan untuk level berikutnya
+        }
+        // Fungsi untuk melanjutkan ke level berikutnya
+        function nextLevel() {
+            // Di sini Anda dapat melakukan apa pun yang diperlukan untuk beralih ke level berikutnya
+            alert('Selamat! Anda telah menyelesaikan Level 1. Klik OK untuk melanjutkan ke Level 2.'); // Pesan sementara
+            // Setelah di sini, Anda mungkin ingin membawa pengguna ke level berikutnya atau memuat kembali halaman dengan level yang sesuai
+        }
+        // Memanggil fungsi untuk menampilkan pertanyaan pada saat memuat halaman
+        displayQuestion();
+    </script>
+</body>
+</html>

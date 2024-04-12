@@ -1,0 +1,23 @@
+body {
+    background-color: #f0f0f0; /* Warna latar belakang abu-abu muda */
+    background-image: url('background.jpg'); /* Gambar latar belakang */
+    background-size: cover; /* Menyesuaikan gambar latar belakang ke ukuran layar */
+    background-position: center; /* Posisi gambar latar belakang di tengah */
+    background-repeat: no-repeat; /* Menghindari pengulangan gambar latar belakang */
+    font-family: Arial, sans-serif; /* Jenis huruf default */
+    color: #333; /* Warna teks */
+}
+
+/* Gaya khusus untuk header, konten, footer, dll. */
+header {
+    background-color: #1f77b4; /* Warna latar belakang header biru */
+    color: #fff; /* Warna teks putih */
+    padding: 20px; /* Ruang dalam header */
+}
+
+footer {
+    background-color: #333; /* Warna latar belakang footer hitam */
+    color: #fff; /* Warna teks putih */
+    padding: 10px; /* Ruang dalam footer */
+    text-align: center; /* Teks di tengah */
+}

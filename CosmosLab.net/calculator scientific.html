@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>calculator scientific</title>
+<link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQA_9bRyFznTI2j3sSRLGVDZi-xr-DfFCDPsBrouWcJXfAnc6Uz7Jf7EF26Qbmo-Eb92U&usqp=CAU" type="image/x-icon">
+<style> 
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .calculator {
+    width: 300px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 0; /* Menghapus border-radius untuk membuat persegi */
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  .calculator input[type="button"] {
+    width: 50px;
+    height: 50px;
+    padding: 10px;
+    margin: 5px;
+    font-size: 18px;
+    border: 1px solid #ccc;
+    border-radius: 0; /* Menghapus border-radius untuk membuat persegi */
+    cursor: pointer;
+    background-color: #f2f2f2;
+  }
+  .calculator input[type="text"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin: 5px;
+    font-size: 18px;
+    border: 1px solid #ccc;
+    border-radius: 0; /* Menghapus border-radius untuk membuat persegi */
+    text-align: right;
+  }
+  .calculator .row {
+    display: flex;
+  }
+  .calculator .row .col {
+    flex: 1;
+  }
+</style>
+
+</head>
+
+
+<body>
+  
+  <a href="untitled2.html"title=" menuju halaman Home">Home</a>
+    <div class="calculator">
+  <input type="text" id="display" disabled>
+  <div class="row">
+    <input type="button" value="1" onclick="addToDisplay('1')" class="col">
+    <input type="button" value="2" onclick="addToDisplay('2')" class="col">
+    <input type="button" value="3" onclick="addToDisplay('3')" class="col">
+    <input type="button" value="+" onclick="addToDisplay('+')" class="col">
+  </div>
+  <div class="row">
+    <input type="button" value="4" onclick="addToDisplay('4')" class="col">
+    <input type="button" value="5" onclick="addToDisplay('5')" class="col">
+    <input type="button" value="6" onclick="addToDisplay('6')" class="col">
+    <input type="button" value="-" onclick="addToDisplay('-')" class="col">
+  </div>
+  <div class="row">
+    <input type="button" value="7" onclick="addToDisplay('7')" class="col">
+    <input type="button" value="8" onclick="addToDisplay('8')" class="col">
+    <input type="button" value="9" onclick="addToDisplay('9')" class="col">
+    <input type="button" value="*" onclick="addToDisplay('*')" class="col">
+  </div>
+  <div class="row">
+    <input type="button" value="C" onclick="clearDisplay()" class="col">
+    <input type="button" value="0" onclick="addToDisplay('0')" class="col">
+    <input type="button" value="/" onclick="addToDisplay('/')" class="col">
+    <input type="button" value="=" onclick="calculate()" class="col">
+  </div>
+</div>
+
+<script>
+  function addToDisplay(value) {
+    document.getElementById('display').value += value;
+  }
+
+  function clearDisplay() {
+    document.getElementById('display').value = '';
+  }
+
+  function calculate() {
+    var display = document.getElementById('display').value;
+    var result = eval(display);
+    document.getElementById('display').value = result;
+  }
+</script>
+
+ 
+
+
+</body>
+</html>

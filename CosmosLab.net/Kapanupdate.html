@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Countdown</title>
+</head>
+<body>
+    <div id="update-info">
+        <h2>Update Information</h2>
+        <p>The next update will be in <span id="countdown"></span> days.</p>
+        <p>Last update: <span id="last-update">April 11, 2024</span></p>
+    </div>
+    
+    <script>
+        // Tanggal terakhir update
+        const lastUpdate = new Date('2024-04-11');
+
+        // Tanggal update berikutnya (misalnya 72 hari setelah tanggal terakhir update)
+        const daysUntilUpdate = 112;
+        const nextUpdate = new Date();
+        nextUpdate.setDate(lastUpdate.getDate() + daysUntilUpdate);
+
+        // Hitung mundur ke tanggal update berikutnya
+        function updateCountdown() {
+            const now = new Date();
+            const timeDiff = nextUpdate.getTime() - now.getTime();
+            const daysLeft = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+            document.getElementById('countdown').textContent = daysLeft;
+        }
+
+        // Perbarui hitungan mundur setiap detik
+        setInterval(updateCountdown, 1000);
+
+        // Tampilkan tanggal terakhir update
+        const lastUpdateElement = document.getElementById('last-update');
+        const lastUpdateFormatted = lastUpdate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        lastUpdateElement.textContent = lastUpdateFormatted;
+    </script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+/* styles.css */
+.image-container a {
+    background-color: #ffffff; /* Default background color */
+  }
+  
+  #color1:checked ~ .image-container a {
+    background-color:#ssss; /* Putih */
+  }
+  
+  #color2:checked ~ .image-container a {
+    background-color: #00FF00; /* Merah Muda */
+  }
+  
+  #color3:checked ~ .image-container a {
+    background-color: #000000; /* Hijau Muda */
+  }
+  

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Tebak-Tebakan Math SMP</title>
+    <link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQA_9bRyFznTI2j3sSRLGVDZi-xr-DfFCDPsBrouWcJXfAnc6Uz7Jf7EF26Qbmo-Eb92U&usqp=CAU" type="image/x-icon">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            text-align: center;
+        }
+        #question {
+            margin-bottom: 20px;
+        }
+        #timer {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        #options {
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #nextLevel {
+            margin-top: 20px;
+            display: none;
+        }
+        #ranking {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Game Tebak-Tebakan Math SMP</h1>
+    <div class="container">
+        <p id="timer">Waktu tersisa: 6:00</p>
+        <p id="question"></p>
+        <div id="options"></div>
+        <button onclick="submitAnswer()">Submit</button>
+    </div>
+    <p id="result"></p>
+    <div id="answers"></div>
+    <p id="nextLevel"><a href="nextlevel math sd.html" onclick="nextLevel()">Lanjutkan</a></p>
+    <div id="ranking">
+        <h2>Peringkat:</h2>
+        <ol id="rankList"></ol>
+    </div>
+
+    <script>
+        const questionElement = document.getElementById('question');
+        const optionsElement = document.getElementById('options');
+        const timerElement = document.getElementById('timer');
+        const resultElement = document.getElementById('result');
+        const answersElement = document.getElementById('answers');
+        const nextLevelElement = document.getElementById('nextLevel');
+        const rankingElement = document.getElementById('ranking');
+        const rankListElement = document.getElementById('rankList');
+        let score = 0;
+        let timeLeft = 360; // 6 menit dalam detik
+        let timerInterval;
+        let currentQuestionIndex = 0;
+        let wrongAnswers = [];
+        let rankings = []; // Simpan peringkat pengguna
+
+        const questions = [
+        { question: "223+23=", options: ["113", "290","246", "300"], answer: "246" },
+        { question: "12x12", options: ["12", "200", "144", "142"], answer: "144" },
+        { question: "Rumus persegi adalah?", options: ["sxs", "pxl", "lxaxt", "2x2"], answer: "sxs" },
+        { question: "555-45", options: ["510", "15", "30", "149"], answer: "510" },
+        { question: "Sebuah persegi memiliki panjang sisi 8 cm. Luasnya adalah.", options: ["32 cm²", "64 cm²", "16 cm²", "24 cm²"], answer: "64 cm²" }
+
+
+            ];
+    
+            function displayQuestion() {
+                const currentQuestion = questions[currentQuestionIndex];
+                questionElement.textContent = currentQuestion.question;
+                optionsElement.innerHTML = '';
+                currentQuestion.options.forEach((option, index) => {
+                    const input = document.createElement('input');
+                    input.type = 'radio';
+                    input.name = 'answer';
+                    input.value = option;
+                    input.id = `option${index}`;
+                    const label = document.createElement('label');
+                    label.setAttribute('for', `option${index}`);
+                    label.textContent = option;
+                    optionsElement.appendChild(input);
+                    optionsElement.appendChild(label);
+                    optionsElement.appendChild(document.createElement('br'));
+                });
+            }
+    
+            function submitAnswer() {
+                const userAnswer = document.querySelector('input[name="answer"]:checked');
+                if (!userAnswer) {
+                    return;
+                }
+                const selectedAnswer = userAnswer.value.toLowerCase();
+                const correctAnswer = questions[currentQuestionIndex].answer.toLowerCase();
+                if (selectedAnswer === correctAnswer) {
+                    score += 10;
+                    resultElement.textContent = "Jawaban Benar! Skor Anda: " + score;
+                } else {
+                    score += 1;
+                    resultElement.textContent = "Jawaban Salah. Skor Anda: " + score;
+                    wrongAnswers.push({ question: questions[currentQuestionIndex].question, correctAnswer });
+                }
+                currentQuestionIndex++;
+                if (currentQuestionIndex < questions.length) {
+                    displayQuestion();
+                } else {
+                    clearInterval(timerInterval);
+                    showResults();
+                }
+            }
+    
+            function showResults() {
+                resultElement.textContent = "Permainan Selesai. Skor Akhir Anda: " + score;
+                if (wrongAnswers.length > 0) {
+                    let wrongAnswersHtml = "<p>Jawaban yang Salah:</p><ul>";
+                    wrongAnswers.forEach(answer => {
+                        wrongAnswersHtml += `<li>${answer.question} - Jawaban yang Benar: ${answer.correctAnswer}</li>`;
+                    });
+                    wrongAnswersHtml += "</ul>";
+                    answersElement.innerHTML = wrongAnswersHtml;
+                }
+                nextLevelElement.style.display = 'block';
+                calculateRank();
+                displayRanking();
+            }
+    
+            function nextLevel() {
+                // Redirect ke level selanjutnya (atau halaman lain) di sini
+                alert('Selamat! Anda melanjutkan ke level selanjutnya.');
+            }
+    
+            function calculateRank() {
+                // Simpan skor dan nama pengguna ke dalam peringkat
+                const username = prompt("Masukkan nama Anda:");
+                rankings.push({ username, score });
+                // Urutkan peringkat berdasarkan skor tertinggi
+                rankings.sort((a, b) => b.score - a.score);
+            }
+    
+            function displayRanking() {
+                // Tampilkan peringkat
+                rankListElement.innerHTML = '';
+                rankings.forEach((rank, index) => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = `${index + 1}. ${rank.username} - Skor: ${rank.score}`;
+                    rankListElement.appendChild(listItem);
+                });
+                rankingElement.style.display = 'block';
+            }
+    
+            function countdown() {
+                const minutes = Math.floor(timeLeft / 60);
+                let seconds = timeLeft % 60;
+                seconds = seconds < 10 ? '0' + seconds : seconds;
+                timerElement.textContent = `Waktu tersisa: ${minutes}:${seconds}`;
+                if (timeLeft === 0) {
+                    resultElement.textContent = "Waktu habis. Permainan Selesai. Skor Akhir Anda: " + score;
+                    clearInterval(timerInterval);
+                    showResults();
+                } else {
+                    timeLeft--;
+                }
+            }
+    
+            displayQuestion();
+            timerInterval = setInterval(countdown, 1000);
+        </script>
+    </body>
+    </html>

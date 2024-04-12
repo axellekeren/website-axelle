@@ -1,0 +1,22 @@
+/* styles.css */
+.image-container {
+  display: inline-block;
+  position: relative; /* Diperlukan untuk menentukan posisi link */
+}
+
+.image-container a {
+  position: absolute; /* Menentukan posisi link */
+  top: 10px; /* Menentukan jarak dari atas */
+  right: 10px; /* Menentukan jarak dari kanan */
+  background-color: rgba(0, 255, 153, 0.5); /* Warna latar belakang link */
+  padding: 5px 10px; /* Padding untuk menambahkan ruang di sekitar teks */
+  border-radius: 5px; /* Memberikan sudut membulat pada link */
+  text-decoration: none; /* Menghapus dekorasi default */
+  color: #333; /* Warna teks link */
+  transition: background-color 0.3s; /* Efek transisi saat hover */
+}
+
+.image-container a:hover {
+  background-color: rgba(0, 0, 0, 0.5); /* Warna latar belakang link saat dihover */
+  color: #fff; /* Warna teks link saat dihover */
+}
